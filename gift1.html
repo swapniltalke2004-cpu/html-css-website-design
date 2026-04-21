@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Love Coupon</title>
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#ffe6f2,#ff86b5,#b6e3ff);
+  padding:20px;
+  box-sizing:border-box;
+}
+
+.wrap{
+  width:100%;
+  max-width:1100px;
+  text-align:center;
+}
+
+h1{
+  margin:0 0 18px;
+  font-size:3rem;
+  font-weight:900;
+  letter-spacing:6px;
+  color:#9f1c1c;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+}
+
+.heartNav{
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.heartNav:hover{
+  transform:scale(1.2);
+}
+
+.slide{ display:none; }
+.slide.active{
+  display:block;
+  animation: pop 0.4s ease-out;
+}
+@keyframes pop{
+  from{ transform:scale(0.96); opacity:0; }
+  to{ transform:scale(1); opacity:1; }
+}
+
+.coupon{
+  width:100%;
+  max-width:900px;
+  aspect-ratio:16/9;
+  margin:0 auto;
+  border-radius:22px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 22px 60px rgba(0,0,0,0.18);
+}
+
+.couponBg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+}
+
+.darkFade{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.25);
+}
+
+.textCenter{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  padding:20px;
+}
+
+.mainTitle{
+  font-size:2.6rem;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.desc{
+  font-size:1.35rem;
+  font-weight:800;
+  margin-bottom:14px;
+}
+
+.meta{
+  font-family: "Courier New", monospace;
+  font-size:1.05rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  opacity:0.95;
+  border-top:2px dashed rgba(255,255,255,0.7);
+  margin-top:10px;
+  padding-top:8px;
+}
+
+@media(max-width:760px){
+  h1{font-size:2.2rem;}
+  .mainTitle{font-size:1.8rem;}
+  .desc{font-size:1.05rem;}
+  .meta{font-size:0.9rem;}
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <!-- 💖 BACK | TITLE | NEXT -->
+  <h1>
+    <span class="heartNav" id="backHeart">💖</span>
+    LOVE COUPON
+    <span class="heartNav" id="nextHeart">💖</span>
+  </h1>
+
+  <!-- SLIDE 1 -->
+  <div class="slide active">
+    <div class="coupon">
+      <div class="couponBg" style="background-image:url('assets/coupon1.png')"></div>
+      <div class="darkFade"></div>
+      <div class="textCenter">
+        <div class="mainTitle">Free Snuggles</div>
+        <div class="desc">Redeem for unlimited cozy cuddles</div>
+        <div class="meta">Uses: Unlimited<br>Expires: Never</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="slide">
+    <div class="coupon">
+      <div class="couponBg" style="background-image:url('assets/coupon2.png')"></div>
+      <div class="darkFade"></div>
+      <div class="textCenter">
+        <div class="mainTitle">Lifetime Treats</div>
+        <div class="desc">Treats, hugs & love forever</div>
+        <div class="meta">Uses: Unlimited<br>Expires: Never</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 -->
+  <div class="slide">
+    <div class="coupon">
+      <div class="couponBg" style="background-image:url('assets/coupon3.png')"></div>
+      <div class="darkFade"></div>
+      <div class="textCenter">
+        <div class="mainTitle">Virtual Date</div>
+        <div class="desc">A cute online date with me</div>
+        <div class="meta">Uses: Unlimited<br>Expires: Never</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const slides = document.querySelectorAll(".slide");
+let current = 0;
+
+function showSlide(i){
+  slides.forEach(s => s.classList.remove("active"));
+  slides[i].classList.add("active");
+}
+
+document.getElementById("nextHeart").onclick = () => {
+  if(current < slides.length - 1){
+    current++;
+    showSlide(current);
+  } else {
+    window.location.href = "gifts.html";
+  }
+};
+
+document.getElementById("backHeart").onclick = () => {
+  if(current > 0){
+    current--;
+    showSlide(current);
+  }
+};
+</script>
+
+</body>
+</html>

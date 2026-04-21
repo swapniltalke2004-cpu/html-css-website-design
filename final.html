@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Love ❤️</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  background:#ff9fc4;
+  position:relative;
+}
+
+/* MAIN IMAGE (BEHIND) */
+.final{
+  position:absolute;
+  inset:0;
+  background:url("assets/final.jpg") center/contain no-repeat;
+  z-index:1;
+}
+
+/* LEFT EMOJI (CLICKABLE → VIDEO) */
+.gif-left{
+  position:absolute;
+  left:100px;
+  top:50%;
+  transform:translateY(-50%);
+  width:200px;
+  z-index:4;
+  cursor:pointer;
+  pointer-events:auto;
+  animation: float 4s ease-in-out infinite;
+}
+
+/* RIGHT EMOJI (CLICKABLE → INDEX) */
+.gif-right{
+  position:absolute;
+  right:100px;
+  top:50%;
+  transform:translateY(-50%);
+  width:200px;
+  z-index:4;
+  cursor:pointer;
+  pointer-events:auto;
+  animation: float 4s ease-in-out infinite;
+}
+
+/* FLOAT ANIMATION */
+@keyframes float{
+  0%{ transform:translateY(-50%) translateY(0); }
+  50%{ transform:translateY(-50%) translateY(-18px); }
+  100%{ transform:translateY(-50%) translateY(0); }
+}
+
+/* MOBILE */
+@media(max-width:700px){
+  .gif-left,.gif-right{ width:120px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND IMAGE -->
+<div class="final"></div>
+
+<!-- 👈 BACK TO VIDEO -->
+<img 
+  src="assets/left.gif" 
+  class="gif-left" 
+  alt=""
+  onclick="window.location.href='video.html'"
+>
+
+<!-- 👉 GO TO START -->
+<img 
+  src="assets/right.gif"
+  class="gif-right"
+  alt=""
+  onclick="window.location.href='index.html'"
+>
+
+</body>
+</html>

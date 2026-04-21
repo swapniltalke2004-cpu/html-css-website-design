@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Love Letter 💌</title>
+
+  <style>
+    body{
+      margin:0;
+      height:100vh;
+      overflow:hidden;
+      background:#000;
+      font-family: Arial, sans-serif;
+    }
+
+    .wrapper{
+      display:flex;
+      height:100vh;
+      width:100vw;
+      position:relative;
+    }
+
+    /* side images */
+    .side{
+      flex:1;
+      background-size:cover;
+      background-position:center;
+      filter: blur(2px) brightness(0.7);
+      z-index:1;
+    }
+
+    /* 🔥 aggressive overlap to kill black bars */
+    .side.left{
+      margin-right:-120px;
+    }
+    .side.right{
+      margin-left:-120px;
+    }
+
+    /* center letter */
+    .center{
+      flex:1.2;
+      background: url("assets/love_letter.jpg") center/contain no-repeat;
+      position:relative;
+      z-index:2;
+    }
+
+    /* hamster extreme right */
+    .hamster{
+      position:fixed;
+      bottom:24px;
+      right:10px;
+      font-size:2.6rem;
+      cursor:pointer;
+      transition:0.2s;
+      z-index:5;
+      filter: drop-shadow(0 0 16px rgba(255,150,150,0.9));
+    }
+
+    .hamster:hover{
+      transform: scale(1.25);
+    }
+
+    @media(max-width:900px){
+      .side{ display:none; }
+      .center{ flex:1; }
+      .hamster{
+        font-size:2.2rem;
+        right:8px;
+        bottom:16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <div class="side left" style="background-image:url('assets/side_left.jpg')"></div>
+    <div class="center"></div>
+    <div class="side right" style="background-image:url('assets/side_right.jpg')"></div>
+  </div>
+
+  <div class="hamster" onclick="window.location.href='gifts.html'">🐹</div>
+
+</body>
+</html>
+<script>
+  localStorage.setItem("gift3Opened", "true");
+</script>

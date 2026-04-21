@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Moments 💖</title>
+
+  <style>
+    body{
+      margin:0;
+      height:100vh;
+      overflow:hidden;
+      font-family: Arial, sans-serif;
+      background:#000;
+    }
+
+    /* center image */
+    .bg{
+      position:fixed;
+      inset:0;
+      background: url("assets/moments.jpg") center/contain no-repeat;
+    }
+
+    /* fade */
+    .fade{
+      position:fixed;
+      inset:0;
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,0.1) 0%,
+        rgba(0,0,0,0.35) 100%
+      );
+      pointer-events:none;
+    }
+
+    /* common text */
+    .txt{
+      position:fixed;
+      color:white;
+      font-weight:900;
+      font-size:2rem;
+      text-shadow:0 14px 34px rgba(0,0,0,0.75);
+      z-index:5;
+      user-select:none;
+      animation: fadeUp 0.9s ease-out forwards;
+      opacity:0;
+    }
+
+    @keyframes fadeUp{
+      from{ opacity:0; transform:translateY(12px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    /* LEFT TEXT → ABOVE */
+    .leftText{
+      top:8vh;
+      left:0vw;
+      text-align:left;
+    }
+
+    /* RIGHT TEXT → BELOW (moved UP slightly) */
+    .rightText{
+      bottom:12vh;   /* 🔼 moved up */
+      right:0vw;
+      text-align:right;
+    }
+
+    /* heart only */
+    .heart{
+      display:inline-block;
+      margin-left:6px;
+      cursor:pointer;
+      font-size:2.3rem;
+      transition:0.2s;
+      user-select:none;
+      filter: drop-shadow(0 0 18px rgba(255,0,80,0.85));
+    }
+
+    .heart:hover{
+      transform: scale(1.25);
+    }
+
+    @media(max-width:700px){
+      .txt{ font-size:1.25rem; }
+      .leftText{ top:10vh; }
+      .rightText{ bottom:14vh; }
+      .heart{ font-size:1.8rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg"></div>
+  <div class="fade"></div>
+
+  <!-- LEFT ABOVE -->
+  <div class="txt leftText">I’m obsessed..🥵</div>
+
+  <!-- RIGHT BELOW -->
+  <div class="txt rightText">
+    Sorry..🥺💘✨
+    <span class="heart" onclick="window.location.href='gifts.html'">❤️</span>
+  </div>
+
+</body>
+</html>
+<script>
+  localStorage.setItem("gift2Opened", "true");
+</script>

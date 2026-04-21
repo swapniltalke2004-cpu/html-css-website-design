@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift for You 💖</title>
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ff9acb, #ffd1e8);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.card{
+  width:90%;
+  max-width:1100px;
+  background: linear-gradient(135deg, #ffffff, #eef4ff);
+  border-radius:26px;
+  padding:30px 24px 40px;
+  box-shadow:0 25px 60px rgba(0,0,0,0.25);
+  text-align:center;
+}
+
+h1{
+  margin:0;
+  color:#ff3d7f;
+  font-size:2.3rem;
+  font-weight:900;
+}
+
+.subtitle{
+  margin-top:8px;
+  color:#555;
+  font-size:1.1rem;
+  margin-bottom:30px;
+}
+
+.gifts{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:30px;
+}
+
+.gift{
+  background:#fff;
+  border-radius:22px;
+  padding:20px;
+  cursor:pointer;
+  transition:0.3s ease;
+  box-shadow:0 14px 35px rgba(0,0,0,0.15);
+}
+
+.gift:hover{
+  transform:translateY(-10px) scale(1.03);
+  box-shadow:0 24px 45px rgba(255,0,120,0.35);
+}
+
+.gift img{
+  width:100%;
+  height:220px;
+  object-fit:contain;
+}
+
+.nextBtn{
+  display:none;
+  margin-top:35px;
+  font-size:1.3rem;
+  font-weight:800;
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  background:#ff3d7f;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 12px 30px rgba(255,0,120,0.45);
+}
+
+@media(max-width:900px){
+  .gifts{ grid-template-columns:1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Gift for You 💝</h1>
+  <div class="subtitle">Click any gift to open...</div>
+
+  <div class="gifts">
+    <div class="gift" onclick="openGift('gift1.html','gift1Opened')">
+      <img src="assets/gift1.png">
+    </div>
+
+    <div class="gift" onclick="openGift('gift2.html','gift2Opened')">
+      <img src="assets/gift2.png">
+    </div>
+
+    <div class="gift" onclick="openGift('gift3.html','gift3Opened')">
+      <img src="assets/gift3.png">
+    </div>
+  </div>
+
+  <button class="nextBtn" id="nextBtn"onclick="window.location.href='video.html'"
+>
+    Next 💖
+  </button>
+</div>
+
+<script>
+/* 🔥 RESET ONLY ON FIRST VISIT */
+if(!sessionStorage.getItem("giftsSessionStarted")){
+  localStorage.removeItem("gift1Opened");
+  localStorage.removeItem("gift2Opened");
+  localStorage.removeItem("gift3Opened");
+  sessionStorage.setItem("giftsSessionStarted","true");
+}
+
+/* OPEN GIFT */
+function openGift(page,key){
+  localStorage.setItem(key,"true");
+  location.href = page;
+}
+
+/* CHECK */
+function checkAllOpened(){
+  if(
+    localStorage.getItem("gift1Opened") &&
+    localStorage.getItem("gift2Opened") &&
+    localStorage.getItem("gift3Opened")
+  ){
+    document.getElementById("nextBtn").style.display="inline-block";
+  }
+}
+
+checkAllOpened();
+</script>
+
+</body>
+</html>

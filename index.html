@@ -1,10 +1,244 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Test</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will you be my Valentine? 🌹</title>
+
+  <style>
+    body{
+      margin:0;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg,#ff74a6,#ffb3cf);
+      overflow:hidden;
+      text-align:center;
+    }
+
+    .card{
+      width:92%;
+      max-width:560px;
+      background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.95),
+        rgba(210,235,255,0.92)
+      );
+      padding:30px 26px;
+      border-radius:22px;
+      box-shadow:0 20px 55px rgba(0,0,0,0.22);
+      backdrop-filter: blur(10px);
+      border:1px solid rgba(255,255,255,0.55);
+      position:relative;
+    }
+
+    h1{
+      margin:0 0 12px;
+      font-size:2.1rem;
+      font-weight:900;
+      color:#ff2e74;
+    }
+
+    .gifBox{
+      width:240px;
+      height:240px;
+      margin:14px auto;
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 12px 30px rgba(0,0,0,0.15);
+      background:#fff;
+    }
+
+    .gifBox img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .status{
+      font-size:1.05rem;
+      font-weight:800;
+      margin:10px 0 18px;
+      color:#444;
+    }
+
+    .btns{
+      position:relative;
+      height:90px;
+      margin-top:10px;
+    }
+
+    button{
+      border:none;
+      border-radius:16px;
+      padding:12px 22px;
+      font-size:1.05rem;
+      font-weight:900;
+      cursor:pointer;
+      box-shadow:0 10px 22px rgba(0,0,0,0.15);
+      transition:0.2s;
+    }
+
+    #yesBtn{
+      background:#00e676;
+      color:#0b3b1c;
+      position:relative;
+      z-index:2;
+    }
+
+    #noBtn{
+      background:#ff1744;
+      color:white;
+      position:fixed; /* 👈 allow movement anywhere */
+      left:65%;
+      top:55%;
+      z-index:5;
+    }
+
+    #yay{
+      display:none;
+      font-size:1.35rem;
+      font-weight:900;
+      margin-top:14px;
+      color:#ff2e74;
+    }
+
+    .heart{
+      position:absolute;
+      bottom:-30px;
+      font-size:22px;
+      animation: floatUp 6s linear infinite;
+      pointer-events:none;
+    }
+
+    @keyframes floatUp{
+      0%{transform:translateY(0);opacity:1;}
+      100%{transform:translateY(-120vh);opacity:0;}
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Hello ❤️</h1>
-  <p>If you see this, GitHub Pages works.</p>
+
+<audio id="bgMusic" autoplay loop></audio>
+
+<div class="card">
+  <h1>Will you be my Valentine? 🌹</h1>
+
+  <div class="gifBox">
+    <img id="duduImg" src="assets/dudu_normal.gif">
+  </div>
+
+  <div class="status" id="statusText">Choose wisely 😌</div>
+
+  <div class="btns">
+    <button id="yesBtn">Yes 💕</button>
+  </div>
+
+  <div id="yay">That’s my girl 💕</div>
+</div>
+
+<button id="noBtn">No 😭</button>
+
+<script>
+/* ================= MUSIC ================= */
+const music = document.getElementById("bgMusic");
+const SONG_NORMAL = "music/normal.mp3";
+const SONG_YES = "music/yes.mp3";
+
+function setSong(song){
+  localStorage.setItem("bgSong", song);
+}
+
+function playSong(){
+  const song = localStorage.getItem("bgSong") || SONG_NORMAL;
+  if(!music.src.includes(song)){
+    music.src = song;
+    music.loop = true;
+    music.volume = 0.6;
+  }
+  music.play().catch(()=>{});
+}
+
+setSong(SONG_NORMAL);
+playSong();
+document.addEventListener("click", playSong, { once:true });
+
+/* ================= ELEMENTS ================= */
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const statusText = document.getElementById("statusText");
+const duduImg = document.getElementById("duduImg");
+const yay = document.getElementById("yay");
+
+const GIF_NORMAL = "assets/dudu_normal.gif";
+const GIF_CRY = "assets/dudu_cry.gif";
+const GIF_DANCE = "assets/dudu_dance.gif";
+
+let accepted = false;
+
+/* ================= NO BUTTON (CLICK ONLY) ================= */
+function moveNoAnywhere(){
+  const padding = 20;
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("click", (e)=>{
+  e.preventDefault();
+  if(accepted) return;
+
+  duduImg.src = GIF_CRY;
+  statusText.innerText = "Dudu is crying... please press YES 💔";
+  moveNoAnywhere();
+});
+
+/* ================= YES ================= */
+yesBtn.addEventListener("click", ()=>{
+  if(accepted) return;
+  accepted = true;
+
+  setSong(SONG_YES);
+  playSong();
+
+  duduImg.src = GIF_DANCE;
+  statusText.innerText = "😍";
+  yay.style.display = "block";
+
+  noBtn.style.display = "none";
+  yesBtn.disabled = true;
+
+  createHearts();
+
+  setTimeout(()=>{
+    setSong(SONG_NORMAL);
+    window.location.href = "gifts.html";
+  }, 5000);
+});
+
+/* ================= HEARTS ================= */
+function createHearts(){
+  const interval = setInterval(()=>{
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerText = "💖";
+    h.style.left = Math.random()*100 + "vw";
+    h.style.animationDuration = (3 + Math.random()*3) + "s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  },180);
+
+  setTimeout(()=>clearInterval(interval),5000);
+}
+</script>
+
 </body>
 </html>
